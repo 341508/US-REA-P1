@@ -11,6 +11,10 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="overflow-hidden rounded-lg bg-white shadow-sm">
                 <div class="p-6">
+                    @if(session('status'))
+                        <div class="mb-6 rounded-md bg-green-100 p-4 text-green-800" role="status">{{ session('status') }}</div>
+                    @endif
+
                     <dl class="mb-6 grid gap-2 text-gray-800 sm:grid-cols-[14rem_1fr]">
                         <dt class="font-semibold">Naam leverancier:</dt><dd>{{ $leverancier->Naam }}</dd>
                         <dt class="font-semibold">Contactpersoon:</dt><dd>{{ $leverancier->ContactPersoon }}</dd>
@@ -37,7 +41,10 @@
                                         <td class="px-4 py-3 text-right">{{ number_format($product->VerpakkingsEenheid, 1, ',', '.') }} kg</td>
                                         <td class="px-4 py-3">{{ \Carbon\Carbon::parse($product->LaatsteLevering)->format('d-m-Y') }}</td>
                                         <td class="px-4 py-3 text-center">
-                                            <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-gray-200 text-xl font-bold text-gray-500" title="Nieuwe levering wordt in userstory 2 toegevoegd">+</span>
+                                            <a href="{{ route('leveranciers.leveringen.create', [$leverancier, $product->ProductId]) }}"
+                                               aria-label="Nieuwe levering van {{ $product->ProductNaam }}"
+                                               title="Nieuwe levering"
+                                               class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-emerald-600 text-xl font-bold text-white hover:bg-emerald-700">+</a>
                                         </td>
                                     </tr>
                                 @empty

@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .jamin-table th,
+    .jamin-table td {
+        @apply border border-gray-400;
+    }
+}

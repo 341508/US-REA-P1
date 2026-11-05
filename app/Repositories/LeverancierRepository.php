@@ -3,8 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Leverancier;
-use App\Models\Product;
-use App\Models\ProductPerLeverancier;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 

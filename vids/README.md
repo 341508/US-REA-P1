@@ -1,15 +1,7 @@
-# Demonstratievideo
+# Demonstratievideo's
 
-Plaats hier vóór het inleveren de demonstratievideo van maximaal 60 seconden.
+- `01-laravel-gebruikersrollen.webm` — Laravel, gebruikersrollen en MySQL-bewijs (30,7 seconden).
+- `02-opdracht-1-userstories.webm` — de scenario's van opdracht 1 (45,9 seconden).
+- `03-opdracht-2-userstories.webm` — de scenario's van opdracht 2 (46,4 seconden).
 
-Laat in de opname zien:
-
-1. dat je bent ingelogd;
-2. het magazijnoverzicht, oplopend gesorteerd op barcode;
-3. de leveringsinformatie van Mintnopjes;
-4. de melding en automatische terugkeer bij Winegums;
-5. de allergeneninformatie van Zoute Ruitjes;
-6. de melding en automatische terugkeer bij Cola Flesjes;
-7. de zes tabellen, relaties en gegevens in phpMyAdmin.
-
-Film de browser en phpMyAdmin, niet de broncode.
+Alle opnames zijn 1280×720, blijven onder de limiet van 60 seconden en bevatten Nederlandse ondertitels.

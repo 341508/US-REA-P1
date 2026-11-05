@@ -18,6 +18,11 @@
                             Naar Overzicht Magazijn Jamin
                         </a>
                     </p>
+                    <p class="mt-4">
+                        <a class="inline-flex rounded-md bg-emerald-600 px-4 py-2 text-white hover:bg-emerald-700" href="{{ route('leveranciers.index') }}">
+                            Naar Overzicht Leveranciers
+                        </a>
+                    </p>
                     @if(auth()->user()->isAdmin())
                         <p class="mt-4">
                             <a class="text-indigo-600 underline hover:text-indigo-900" href="{{ route('admin.users.index') }}">

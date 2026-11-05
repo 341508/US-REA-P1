@@ -19,7 +19,7 @@
 /storage/*.key
 /storage/pail
 /storage/framework/lsp-*.php
-/storage/framework/testing_views
+/storage/framework/testing_views*
 /vendor
 /.mariadb-local-data
 /.mariadb-local-tmp

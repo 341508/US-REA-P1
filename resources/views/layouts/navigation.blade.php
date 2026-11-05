@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('magazijn.index')" :active="request()->routeIs('magazijn.*')">
                         Overzicht Magazijn Jamin
                     </x-nav-link>
+                    <x-nav-link :href="route('leveranciers.index')" :active="request()->routeIs('leveranciers.*')">
+                        Overzicht Leveranciers
+                    </x-nav-link>
                     @if(Auth::user()->isAdmin())
                         <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
                             Gebruikersrollen
@@ -80,6 +83,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('magazijn.index')" :active="request()->routeIs('magazijn.*')">
                 Overzicht Magazijn Jamin
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('leveranciers.index')" :active="request()->routeIs('leveranciers.*')">
+                Overzicht Leveranciers
             </x-responsive-nav-link>
             @if(Auth::user()->isAdmin())
                 <x-responsive-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">

@@ -26,8 +26,8 @@ return new class extends Migration
         );
 
         // Opdracht 2 gebruikt dezelfde leveringen één maand later dan opdracht 1.
-        DB::statement("UPDATE ProductPerLeverancier SET DatumLevering = DATE_ADD(DatumLevering, INTERVAL 1 MONTH) WHERE YEAR(DatumLevering) = 2024 AND MONTH(DatumLevering) = 10");
-        DB::statement("UPDATE ProductPerLeverancier SET DatumEerstVolgendeLevering = DATE_ADD(DatumEerstVolgendeLevering, INTERVAL 1 MONTH) WHERE YEAR(DatumEerstVolgendeLevering) = 2024 AND MONTH(DatumEerstVolgendeLevering) = 10");
+        DB::statement('UPDATE ProductPerLeverancier SET DatumLevering = DATE_ADD(DatumLevering, INTERVAL 1 MONTH) WHERE YEAR(DatumLevering) = 2024 AND MONTH(DatumLevering) = 10');
+        DB::statement('UPDATE ProductPerLeverancier SET DatumEerstVolgendeLevering = DATE_ADD(DatumEerstVolgendeLevering, INTERVAL 1 MONTH) WHERE YEAR(DatumEerstVolgendeLevering) = 2024 AND MONTH(DatumEerstVolgendeLevering) = 10');
 
         // Winegums wordt volgens scenario 02 niet meer geproduceerd.
         DB::table('Product')->where('Id', 10)->update(['IsActief' => 0]);
@@ -43,8 +43,8 @@ return new class extends Migration
         }
 
         DB::table('Product')->where('Id', 10)->update(['IsActief' => 1]);
-        DB::statement("UPDATE ProductPerLeverancier SET DatumLevering = DATE_SUB(DatumLevering, INTERVAL 1 MONTH) WHERE YEAR(DatumLevering) = 2024 AND MONTH(DatumLevering) = 11");
-        DB::statement("UPDATE ProductPerLeverancier SET DatumEerstVolgendeLevering = DATE_SUB(DatumEerstVolgendeLevering, INTERVAL 1 MONTH) WHERE YEAR(DatumEerstVolgendeLevering) = 2024 AND MONTH(DatumEerstVolgendeLevering) = 11");
+        DB::statement('UPDATE ProductPerLeverancier SET DatumLevering = DATE_SUB(DatumLevering, INTERVAL 1 MONTH) WHERE YEAR(DatumLevering) = 2024 AND MONTH(DatumLevering) = 11');
+        DB::statement('UPDATE ProductPerLeverancier SET DatumEerstVolgendeLevering = DATE_SUB(DatumEerstVolgendeLevering, INTERVAL 1 MONTH) WHERE YEAR(DatumEerstVolgendeLevering) = 2024 AND MONTH(DatumEerstVolgendeLevering) = 11');
         DB::table('Leverancier')->where('Id', 6)->delete();
     }
 };

@@ -23,6 +23,8 @@ Route::middleware('auth')->group(function () {
     // Opdracht 2 - userstory 1: leveranciers en hun geleverde producten.
     Route::get('/leveranciers', [LeverancierController::class, 'index'])->name('leveranciers.index');
     Route::get('/leveranciers/{leverancier}/producten', [LeverancierController::class, 'producten'])->name('leveranciers.producten');
+    Route::get('/leveranciers/{leverancier}/producten/{product}/levering', [LeverancierController::class, 'createLevering'])->name('leveranciers.leveringen.create');
+    Route::post('/leveranciers/{leverancier}/producten/{product}/levering', [LeverancierController::class, 'storeLevering'])->name('leveranciers.leveringen.store');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

@@ -3,8 +3,10 @@
 namespace App\Repositories;
 
 use App\Models\Leverancier;
+use App\Models\Product;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use RuntimeException;
 
 class LeverancierRepository
 {
@@ -63,5 +65,62 @@ class LeverancierRepository
                 DB::raw('MAX(ppl.DatumLevering) as LaatsteLevering'),
             ])
             ->get();
+    }
+
+    /**
+     * Controleer dat het gekozen product door deze leverancier geleverd wordt.
+     */
+    public function geleverdProduct(Leverancier $leverancier, Product $product): object
+    {
+        $geleverdProduct = $this->geleverdeProducten($leverancier)
+            ->firstWhere('ProductId', $product->Id);
+
+        if ($geleverdProduct === null) {
+            throw new RuntimeException('Dit product hoort niet bij de gekozen leverancier.');
+        }
+
+        return $geleverdProduct;
+    }
+
+    /**
+     * Voeg een levering toe en verhoog de magazijnvoorraad.
+     *
+     * @return object{Gelukt: int, Melding: string}
+     */
+    public function voegLeveringToe(Leverancier $leverancier, Product $product, int $aantal, string $volgendeLevering): object
+    {
+        $this->geleverdProduct($leverancier, $product);
+
+        if (DB::getDriverName() === 'mysql') {
+            return DB::selectOne('CALL sp_VoegProductLeveringToe(?, ?, ?, ?)', [
+                $leverancier->Id,
+                $product->Id,
+                $aantal,
+                $volgendeLevering,
+            ]);
+        }
+
+        if (! $product->IsActief) {
+            return (object) [
+                'Gelukt' => 0,
+                'Melding' => "Het product {$product->Naam} van de leverancier {$leverancier->Naam} wordt niet meer geproduceerd",
+            ];
+        }
+
+        DB::transaction(function () use ($leverancier, $product, $aantal, $volgendeLevering): void {
+            DB::table('ProductPerLeverancier')->insert([
+                'LeverancierId' => $leverancier->Id,
+                'ProductId' => $product->Id,
+                'DatumLevering' => now()->toDateString(),
+                'Aantal' => $aantal,
+                'DatumEerstVolgendeLevering' => $volgendeLevering,
+            ]);
+
+            DB::table('Magazijn')
+                ->where('ProductId', $product->Id)
+                ->update(['AantalAanwezig' => DB::raw('COALESCE(AantalAanwezig, 0) + '.(int) $aantal)]);
+        });
+
+        return (object) ['Gelukt' => 1, 'Melding' => 'De levering is opgeslagen'];
     }
 }
